@@ -148,6 +148,7 @@ export const Container = styled.div`
 
     aside.wallpaper {
       grid-area: wallpaper;
+      display: flex;
     }
   }
   iframe {
