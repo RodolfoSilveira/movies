@@ -107,7 +107,10 @@ export const Container = styled.div`
 
         div {
           display: flex;
-          flex-wrap: wrap;
+          ${media.lessThan("medium")`
+            /* screen width is less than 768px (medium) */
+            flex-wrap: wrap;
+          `}
 
           > div {
             display: flex;
