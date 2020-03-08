@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 import { darken, lighten } from 'polished';
+import media from "styled-media-query";
 
 export const Container = styled.div`
   max-width: 700px;
   height: 100%;
   margin: 50px auto;
+
+  ${media.lessThan("medium")`
+    /* screen width is less than 768px (medium) */
+    max-width: 450px;
+  `}
 
   > div {
     width: 100%;
@@ -14,6 +20,12 @@ export const Container = styled.div`
     grid-template-rows: 60px 1fr;
     grid-template-areas: "header header" "content wallpaper ";
 
+    ${media.lessThan("medium")`
+    /* screen width is less than 768px (medium) */
+      grid-template-columns: 250px 200px;
+      grid-template-areas: "header header" "content content";
+    `}
+
     header.header {
       grid-area: header;
       display: flex;
@@ -21,6 +33,7 @@ export const Container = styled.div`
       align-items: center;
       background-color: #ebebeb;
       padding: 20px;
+      flex-shrink: 3;
 
       h2 {
         color: #116193;
@@ -30,11 +43,20 @@ export const Container = styled.div`
         text-overflow: ellipsis;
         width: 400px;
         overflow: hidden;
+        ${media.lessThan("medium")`
+        /* screen width is less than 768px (medium) */
+          font-size: 1.2rem;
+          width: 350px;
+        `}
       }
 
       p {
         color: ${darken(0.08, '#bdbdbd')};
         font-size: 16px;
+        ${media.lessThan("medium")`
+        /* screen width is less than 768px (medium) */
+          font-size: 12px;
+        `}
       }
     }
 
@@ -85,6 +107,7 @@ export const Container = styled.div`
 
         div {
           display: flex;
+          flex-wrap: wrap;
 
           > div {
             display: flex;
@@ -114,6 +137,7 @@ export const Container = styled.div`
           display: flex;
           flex-direction: row;
           align-items: center;
+          flex-wrap: wrap;
 
           > article {
             margin: 5px;
@@ -149,10 +173,18 @@ export const Container = styled.div`
     aside.wallpaper {
       grid-area: wallpaper;
       display: flex;
+      ${media.lessThan("medium")`
+      /* screen width is less than 768px (medium) */
+        display: none;
+      `}
     }
   }
   iframe {
     margin-top: 40px;
     margin-bottom: 40px;
+    ${media.lessThan("medium")`
+        /* screen width is less than 768px (medium) */
+      width: 450px;
+    `}
   }
 `;

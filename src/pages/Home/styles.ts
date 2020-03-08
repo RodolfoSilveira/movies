@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 import { darken, lighten } from 'polished';
+import media from "styled-media-query";
 
 export const Container = styled.div`
   max-width: 700px;
   height: 100%;
   margin: 50px auto;
+
+  ${media.lessThan("medium")`
+    /* screen width is less than 768px (medium) */
+    max-width: 450px;
+  `}
 
   .search-box {
     width: 100%;

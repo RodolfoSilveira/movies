@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { darken, lighten } from 'polished';
+import media from "styled-media-query";
 
 export const MovieBox = styled.div`
   margin-top: 40px;
@@ -9,6 +10,11 @@ export const MovieBox = styled.div`
   grid-template-columns: 200px 1fr;
   grid-template-rows: 60px 1fr;
   grid-template-areas: "wallpaper header" "wallpaper content";
+
+  ${media.between("small", "medium")`
+    grid-template-columns: 200px 250px;
+    grid-template-rows: 60px 1fr;
+  `}
 
   .wallpaper {
     grid-area: wallpaper;
@@ -24,6 +30,11 @@ export const MovieBox = styled.div`
     display: flex;
     align-items: flex-end;
     z-index: -1;
+
+    ${media.between("small", "medium")`
+      width: 250px;
+      /* max-width: 450px; */
+    `}
 
     header {
       height: 60px;
@@ -42,6 +53,10 @@ export const MovieBox = styled.div`
         text-overflow: ellipsis;
         width: 400px;
         overflow: hidden;
+        ${media.between("small", "medium")`
+          padding-left: 0px;
+          width: 200px;
+        `}
       }
     }
   }
@@ -65,6 +80,10 @@ export const MovieBox = styled.div`
       position: absolute;
       top: -30px;
       left: 30px;
+      ${media.between("small", "medium")`
+        display: none;
+      `}
+
       p {
         font-size: 18px;
         color: #00e8e4;
@@ -84,27 +103,38 @@ export const MovieBox = styled.div`
 
       > p {
         width: 100%;
-        line-height: 1.3;
+        line-height: 1.3em;
         /* white-space: nowrap; */
         text-overflow: ellipsis;
         /* width: 500px; */
         /* max-height: 100px; */
         overflow: hidden;
+
+        ${media.between("small", "medium")`
+          width: 100%;
+          line-height:1.2em;
+          height:3.6em;
+        `}
       }
 
       > div {
         display: flex;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
         margin: 10px 0;
 
         > article {
-          margin: 10px;
-          padding: 5px 15px;
+          margin: 5px;
+          padding: 5px 10px;
           background-color: #FFF;
           border: 1px solid #116193;
           border-radius: 18px;
           color: #116193;
+
+          p {
+            font-size: 10px;
+          }
         }
       }
     }
