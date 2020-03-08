@@ -22,6 +22,7 @@ interface Detail {
   runtime: number;
   budget: number;
   original_language: string;
+  popularity: number;
   genres: [
     {
       id: number;
@@ -96,7 +97,7 @@ const Details: React.FC<Children> = ({ match: { params: id } }) => {
               </div>
               <div>
                 <h3>Lucro</h3>
-                <p>{detail?.status}</p>
+                <p>{detail?.popularity}</p>
               </div>
             </div>
           </div>
@@ -126,6 +127,7 @@ const Details: React.FC<Children> = ({ match: { params: id } }) => {
           height="400"
           src={`https://www.youtube.com/embed/${v.key}`}
           title={v.name}
+          key={v.key}
         />
       ))}
     </Container>
