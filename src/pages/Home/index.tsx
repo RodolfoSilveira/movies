@@ -15,22 +15,17 @@ interface MovieDetails {
   genre_ids: [];
 }
 
-type genres = [{
-  id: number
-}]
-
-
 const Home: React.FC = () => {
   const [search, setSearch] = useState('');
   const [genres, setGenres] = useState();
-  const [page, setPage] = useState('');
+  const [pageNow, setPage] = useState('1');
   const [movies, setMovies] = useState([]);
   const [totalPage, setTotalPage] = useState();
 
   async function onHandleSubmit() {
     try {
       const response = await api.get(
-        `search/movie?api_key=${apiKey}&language=pt-BR&query=${search}&page=${page}`
+        `search/movie?api_key=${apiKey}&language=pt-BR&query=${search}&page=${pageNow}`
       );
 
       const generes = await api.get(
@@ -38,20 +33,25 @@ const Home: React.FC = () => {
       );
 
       setGenres(generes.data);
-      const { total_pages, total_results, results } = response.data;
+      const { page, results } = response.data;
 
-      let totalPages = total_results / 5;
-      console.log(response.data);
-      setTotalPage(total_pages);
-      setMovies(results);
-    } catch (e) {
-      // throw new Error('Não foi possivel obter dados');
-    }
+      const indexOfLastTodo = page * 5;
+      const indexOfFirstTodo = indexOfLastTodo - 5;
+      const currentTodos = results.slice(indexOfFirstTodo, indexOfLastTodo);
+
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(results.length / 5); i++) {
+        pageNumbers.push(i);
+      }
+
+      setTotalPage(pageNumbers);
+      setMovies(currentTodos);
+    } catch (e) {}
   }
 
   useEffect(() => {
     onHandleSubmit();
-  }, [search]);
+  }, [search, pageNow]);
 
   function handleInputChange(event: React.FormEvent<HTMLInputElement>): void {
     const { value } = event.currentTarget;
@@ -81,11 +81,16 @@ const Home: React.FC = () => {
       ))}
 
       <Paginate>
-        <button onClick={() => setPaginate('1')}>1</button>
-        <button onClick={() => setPaginate('2')}>2</button>
-        <button onClick={() => setPaginate('3')}>3</button>
-        <button onClick={() => setPaginate('4')}>4</button>
-        <button onClick={() => setPaginate('5')}>5</button>
+        {totalPage !== undefined &&
+          totalPage.map((number: string) => (
+            <li
+              key={number}
+              id={number}
+              onClick={() => setPaginate(number)}
+            >
+              {number}
+            </li>
+          ))}
       </Paginate>
     </Container>
   );

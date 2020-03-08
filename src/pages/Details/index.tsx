@@ -125,6 +125,7 @@ const Details: React.FC<Children> = ({ match: { params: id } }) => {
           width="800"
           height="400"
           src={`https://www.youtube.com/embed/${v.key}`}
+          title={v.name}
         />
       ))}
     </Container>

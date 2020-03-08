@@ -34,7 +34,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Paginate = styled.div`
+export const Paginate = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,8 +42,8 @@ export const Paginate = styled.div`
   font-size: 18px;
   color: #116193;
 
-  button {
-    margin: 5px;
+  li {
+    margin: 10px;
     width: 40px;
     height: 40px;
     background: ${lighten(0.04, '#116193')};
@@ -53,5 +53,6 @@ export const Paginate = styled.div`
     border: 3px solid #00e8e4;
     border-radius: 50%;
     color: #00e8e4;
+    cursor: pointer;
   }
 `;
