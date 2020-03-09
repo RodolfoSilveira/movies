@@ -107,6 +107,7 @@ export const Container = styled.div`
 
         div {
           display: flex;
+          flex-shrink: 3;
           ${media.lessThan("medium")`
             /* screen width is less than 768px (medium) */
             flex-wrap: wrap;
@@ -115,7 +116,7 @@ export const Container = styled.div`
           > div {
             display: flex;
             flex-direction: column;
-            margin-right: 20px;
+            margin-right: 10px;
 
             h3 {
               color: #116193;

@@ -85,19 +85,19 @@ const Details: React.FC<Children> = ({ match: { params: id } }) => {
               </div>
               <div>
                 <h3>Duração</h3>
-                <p>{detail?.runtime}</p>
+                <p>{detail?.runtime}min</p>
               </div>
               <div>
                 <h3>Orçamento</h3>
-                <p>{detail?.budget}</p>
+                <p>{detail?.budget.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
               </div>
               <div>
                 <h3>Receita</h3>
-                <p>{detail?.revenue}</p>
+                <p>{detail?.revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
               </div>
               <div>
                 <h3>Lucro</h3>
-                <p>{detail?.popularity}</p>
+                <p>{detail?.popularity.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
               </div>
             </div>
           </div>
