@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MovieBox } from './styles';
 
 interface Children {
@@ -25,7 +25,7 @@ interface Children {
 const Movie: React.FC<Children> = ({ data, genres }) => {
   const [cat, setCat] = useState<string[]>([]);
 
-  function catagory() {
+  const catagory = useCallback(() => {
     const names: string[] = [];
     data?.genre_ids.map(ge => {
       genres.genres.length > 0 &&
@@ -37,17 +37,18 @@ const Movie: React.FC<Children> = ({ data, genres }) => {
     });
 
     setCat(names);
-  }
+    // eslint-disable-next-line react/prop-types
+  }, [data, genres.genres]);
 
   useEffect(() => {
     catagory();
-  }, []);
+  }, [catagory]);
 
   return (
     <MovieBox>
       <div className="wallpaper">
         <img
-          src={`https://image.tmdb.org/t/p/w200${data?.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w300${data?.poster_path}`}
           alt="movie"
         />
       </div>

@@ -8,15 +8,11 @@ export default createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   *:focus {
     outline: 0;
-  }
-  html, body, #root {
-    height: 100%;
-  }
-  body {
-    -webkit-font-smoothing: antialiased;
   }
   body, input, button {
     font: 14px 'Abel', sans-serif;

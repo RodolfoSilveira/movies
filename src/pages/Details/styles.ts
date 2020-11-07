@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 import { darken, lighten } from 'polished';
-import media from "styled-media-query";
+import media from 'styled-media-query';
 
 export const Container = styled.div`
-  max-width: 700px;
+  max-width: 800px;
   height: 100%;
   margin: 50px auto;
 
-  ${media.lessThan("medium")`
-    /* screen width is less than 768px (medium) */
-    max-width: 450px;
-  `}
-
-  ${media.between("medium", "large")`
-    max-width: 450px;
+  ${media.lessThan('medium')`
+    max-width: 300px;
   `}
 
   > div {
@@ -22,16 +17,14 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 500px 1fr;
     grid-template-rows: 60px 1fr;
-    grid-template-areas: "header header" "content wallpaper ";
+    grid-template-areas: 'header header' 'content wallpaper ';
+    margin: 0 auto;
 
-    ${media.lessThan("medium")`
-    /* screen width is less than 768px (medium) */
-      grid-template-columns: 250px 200px;
-      grid-template-areas: "header header" "content content";
-    `}
-    ${media.between("medium", "large")`
-      grid-template-columns: 250px 200px;
-      grid-template-areas: "header header" "content content";
+    ${media.lessThan('medium')`
+      grid-template-columns: 300px;
+      grid-template-rows: 60px 1fr 1fr;
+      grid-template-areas: "header" "content" "wallpaper";
+      margin-bottom: 10px;
     `}
 
     header.header {
@@ -47,22 +40,23 @@ export const Container = styled.div`
         color: #116193;
         font-size: 1.6rem;
         font-weight: 200;
-        white-space: nowrap;
         text-overflow: ellipsis;
         width: 400px;
         overflow: hidden;
-        ${media.lessThan("medium")`
-        /* screen width is less than 768px (medium) */
-          font-size: 1.2rem;
+        ${media.lessThan('medium')`
+          font-size: 1rem;
           width: 350px;
+          height: 35px;
+        `}
+        ${media.greaterThan('medium')`
+          white-space: nowrap;
         `}
       }
 
       p {
         color: ${darken(0.08, '#bdbdbd')};
         font-size: 16px;
-        ${media.lessThan("medium")`
-        /* screen width is less than 768px (medium) */
+        ${media.lessThan('medium')`
           font-size: 12px;
         `}
       }
@@ -92,6 +86,7 @@ export const Container = styled.div`
         }
 
         p {
+          margin-top: 20px;
           width: 100%;
           line-height: 1.3;
           text-overflow: ellipsis;
@@ -116,19 +111,17 @@ export const Container = styled.div`
         div {
           display: flex;
           flex-shrink: 3;
-          ${media.lessThan("medium")`
-            /* screen width is less than 768px (medium) */
-            flex-wrap: wrap;
-          `}
-
-          ${media.between("medium", "large")`
-            flex-wrap: wrap;
+          flex-wrap: wrap;
+          ${media.lessThan('medium')`
+            flex: 1;
           `}
 
           > div {
             display: flex;
             flex-direction: column;
+            margin-top: 20px;
             margin-right: 10px;
+            align-items: center;
 
             h3 {
               color: #116193;
@@ -158,7 +151,7 @@ export const Container = styled.div`
           > article {
             margin: 5px;
             padding: 5px 10px;
-            background-color: #FFF;
+            background-color: #fff;
             border: 1px solid #116193;
             border-radius: 18px;
             color: #116193;
@@ -178,9 +171,15 @@ export const Container = styled.div`
           justify-content: center;
           border: 5px solid #00e8e4;
           border-radius: 50%;
+          ${media.lessThan('medium')`
+            height: 60px;
+          `}
           p {
             font-size: 20px;
             color: #00e8e4;
+            ${media.lessThan('medium')`
+              font-size: 16px;
+            `}
           }
         }
       }
@@ -189,26 +188,16 @@ export const Container = styled.div`
     aside.wallpaper {
       grid-area: wallpaper;
       display: flex;
-      ${media.lessThan("medium")`
-      /* screen width is less than 768px (medium) */
-        display: none;
-      `}
-
-      ${media.between("medium", "large")`
-        display: none;
+      ${media.lessThan('medium')`
+        display: block;
       `}
     }
   }
   iframe {
     margin-top: 40px;
     margin-bottom: 40px;
-    ${media.lessThan("medium")`
-        /* screen width is less than 768px (medium) */
-      width: 450px;
-    `}
-
-    ${media.between("medium", "large")`
-      width: 450px;
+    ${media.lessThan('medium')`
+      width: 300px;
     `}
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { api, apiKey } from '../../services/api';
 import { Container } from './styles';
 
@@ -46,19 +46,19 @@ interface Detail {
   };
 }
 
-const Details: React.FC<Children> = ({ match: { params: id } }) => {
+const Details = ({ match: { params: id } }: Children) => {
   const [detail, setDetail] = useState<Detail>();
 
-  async function onload() {
+  const onload = useCallback(async () => {
     const response = await api.get(
       `movie/${id.id}?api_key=${apiKey}&language=pt-BR&append_to_response=videos`
     );
     setDetail(response.data);
-  }
+  }, [id.id]);
 
   useEffect(() => {
     onload();
-  }, []);
+  }, [onload]);
 
   return (
     <Container>
@@ -89,15 +89,30 @@ const Details: React.FC<Children> = ({ match: { params: id } }) => {
               </div>
               <div>
                 <h3>Orçamento</h3>
-                <p>{detail?.budget.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+                <p>
+                  {detail?.budget.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </p>
               </div>
               <div>
                 <h3>Receita</h3>
-                <p>{detail?.revenue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+                <p>
+                  {detail?.revenue.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </p>
               </div>
               <div>
                 <h3>Lucro</h3>
-                <p>{detail?.popularity.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+                <p>
+                  {detail?.popularity.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </p>
               </div>
             </div>
           </div>

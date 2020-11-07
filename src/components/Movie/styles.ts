@@ -1,29 +1,34 @@
 import styled from 'styled-components';
 import { darken, lighten } from 'polished';
-import media from "styled-media-query";
+import media from 'styled-media-query';
 
 export const MovieBox = styled.div`
-  margin-top: 40px;
+  margin: 40px auto;
   width: 100%;
   height: auto;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 60px 1fr;
-  grid-template-areas: "wallpaper header" "wallpaper content";
+  grid-template-areas: 'wallpaper header' 'wallpaper content';
 
-  ${media.between("small", "medium")`
-    grid-template-columns: 200px 250px;
+  ${media.lessThan('medium')`
+    margin: 40px auto;
+    max-width: 300px;
+    grid-template-columns: 200px;
     grid-template-rows: 60px 1fr;
+    grid-template-areas: "header" "content" "wallpaper";
   `}
 
   .wallpaper {
     grid-area: wallpaper;
     display: flex;
+    ${media.lessThan('medium')`
+      display: block;
+    `}
   }
 
   .header {
     grid-area: header;
-    height: 60px;
     width: 500px;
     background: ${lighten(0.04, '#116193')};
     padding: 0 30px;
@@ -31,20 +36,19 @@ export const MovieBox = styled.div`
     align-items: flex-end;
     z-index: -1;
 
-    ${media.between("small", "medium")`
-      width: 250px;
+    ${media.lessThan('medium')`
+      width: 300px;
       /* max-width: 450px; */
     `}
 
     header {
-      height: 60px;
       max-width: 600px;
       padding-top: 25px;
       display: flex;
       flex-wrap: wrap;
 
       > h2 {
-        padding-left: 60px;
+        padding-left: 70px;
         padding-bottom: 5px;
         font-size: 1.3rem;
         font-weight: 200;
@@ -53,9 +57,9 @@ export const MovieBox = styled.div`
         text-overflow: ellipsis;
         width: 400px;
         overflow: hidden;
-        ${media.between("small", "medium")`
-          padding-left: 0px;
-          width: 200px;
+        ${media.lessThan('medium')`
+          font-size: 1rem;
+          width: 250px;
         `}
       }
     }
@@ -66,6 +70,9 @@ export const MovieBox = styled.div`
     background-color: #ebebeb;
     z-index: -1;
     position: relative;
+    ${media.lessThan('medium')`
+      width: 300px;
+    `}
 
     > div {
       z-index: 1;
@@ -80,8 +87,9 @@ export const MovieBox = styled.div`
       position: absolute;
       top: -30px;
       left: 30px;
-      ${media.between("small", "medium")`
-        display: none;
+      ${media.lessThan('medium')`
+        top: -30px;
+        left: 10px;
       `}
 
       p {
@@ -110,7 +118,7 @@ export const MovieBox = styled.div`
         /* max-height: 100px; */
         overflow: hidden;
 
-        ${media.between("small", "medium")`
+        ${media.lessThan('medium')`
           width: 100%;
           line-height:1.2em;
           height:3.6em;
@@ -127,7 +135,7 @@ export const MovieBox = styled.div`
         > article {
           margin: 5px;
           padding: 5px 10px;
-          background-color: #FFF;
+          background-color: #fff;
           border: 1px solid #116193;
           border-radius: 18px;
           color: #116193;

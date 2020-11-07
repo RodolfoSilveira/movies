@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Paginate } from './styles';
 import { api, apiKey } from '../../services/api';
@@ -22,10 +22,11 @@ const Home: React.FC = () => {
   const [movies, setMovies] = useState([]);
   const [totalPage, setTotalPage] = useState();
 
-  async function onHandleSubmit() {
+  const onHandleSubmit = useCallback(async () => {
     try {
       const response = await api.get(
-        `search/movie?api_key=${apiKey}&language=pt-BR&query=${search}&page=${pageNow}`
+        `search/movie?api_key=${apiKey}&language=pt-BR&query=${search ||
+        'a'}&page=${pageNow}`
       );
 
       const generes = await api.get(
@@ -46,12 +47,12 @@ const Home: React.FC = () => {
 
       setTotalPage(pageNumbers);
       setMovies(currentTodos);
-    } catch (e) {}
-  }
+    } catch (e) { }
+  }, [pageNow, search]);
 
   useEffect(() => {
     onHandleSubmit();
-  }, [search, pageNow]);
+  }, [search, pageNow, onHandleSubmit]);
 
   function handleInputChange(event: React.FormEvent<HTMLInputElement>): void {
     const { value } = event.currentTarget;
@@ -59,6 +60,10 @@ const Home: React.FC = () => {
   }
 
   function setPaginate(n: string) {
+    const page = document.getElementById(pageNow);
+    page?.classList.remove('active');
+    const pageItem = document.getElementById(n);
+    pageItem?.classList.add('active');
     setPage(n);
     onHandleSubmit();
   }
@@ -82,14 +87,10 @@ const Home: React.FC = () => {
 
       <Paginate>
         {totalPage !== undefined &&
-          totalPage.map((number: string) => (
-            <li
-              key={number}
-              id={number}
-              onClick={() => setPaginate(number)}
-            >
-              {number}
-            </li>
+          totalPage.map((number: string, index: number) => (
+            <div key={number} id={number}>
+              <li onClick={() => setPaginate(number)}>{number}</li>
+            </div>
           ))}
       </Paginate>
     </Container>
