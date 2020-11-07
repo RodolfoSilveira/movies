@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { MovieBox } from './styles';
 
 interface Children {
@@ -59,9 +61,16 @@ const Movie: React.FC<Children> = ({ data, genres }) => {
       </div>
       <div className="content">
         <div>
-          <p>{data?.vote_average}%</p>
+          <div>
+            <p>{data?.vote_average}%</p>
+          </div>
         </div>
-        <span>{data?.release_date}</span>
+        <span>
+          {data?.release_date &&
+            format(parseISO(data?.release_date), "dd'/'MM'/'yyyy", {
+              locale: ptBR,
+            })}
+        </span>
         <section>
           <p>{data?.overview}</p>
           <div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { api, apiKey } from '../../services/api';
 import { Container } from './styles';
 
@@ -65,7 +67,12 @@ const Details = ({ match: { params: id } }: Children) => {
       <div>
         <header className="header">
           <h2>{detail?.title}</h2>
-          <p>{detail?.release_date}</p>
+          <p>
+            {detail?.release_date &&
+              format(parseISO(detail?.release_date), "dd'/'MM'/'yyyy", {
+                locale: ptBR,
+              })}
+          </p>
         </header>
         <section className="content">
           <div className="sinopse">
@@ -125,7 +132,9 @@ const Details = ({ match: { params: id } }: Children) => {
               ))}
             </div>
             <div className="vote">
-              <p>{detail?.vote_average}%</p>
+              <div>
+                <p>{detail?.vote_average}%</p>
+              </div>
             </div>
           </footer>
         </section>

@@ -82,19 +82,24 @@ export const MovieBox = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 5px solid #00e8e4;
       border-radius: 50%;
       position: absolute;
       top: -30px;
       left: 30px;
-      ${media.lessThan('medium')`
-        top: -30px;
-        left: 10px;
-      `}
 
-      p {
-        font-size: 18px;
-        color: #00e8e4;
+      > div {
+        width: 54px;
+        height: 54px;
+        border: 3px solid #00e8e4;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          font-size: 18px;
+          color: #00e8e4;
+        }
       }
     }
 

@@ -57,7 +57,7 @@ export const Container = styled.div`
         color: ${darken(0.08, '#bdbdbd')};
         font-size: 16px;
         ${media.lessThan('medium')`
-          font-size: 12px;
+          font-size: 13px;
         `}
       }
     }
@@ -148,6 +148,10 @@ export const Container = styled.div`
           align-items: center;
           flex-wrap: wrap;
 
+          ${media.lessThan('medium')`
+            width: 144px
+          `}
+
           > article {
             margin: 5px;
             padding: 5px 10px;
@@ -169,17 +173,32 @@ export const Container = styled.div`
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 5px solid #00e8e4;
           border-radius: 50%;
           ${media.lessThan('medium')`
-            height: 60px;
+            width: 66px;
+            height: 66px;
           `}
-          p {
-            font-size: 20px;
-            color: #00e8e4;
+          > div {
+            width: 72px;
+            height: 72px;
+            border: 5px solid #00e8e4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             ${media.lessThan('medium')`
-              font-size: 16px;
+              width: 58px;
+              height: 58px;
             `}
+
+            p {
+              font-size: 20px;
+              color: #00e8e4;
+              ${media.lessThan('medium')`
+                font-size: 16px;
+              `}
+            }
           }
         }
       }
