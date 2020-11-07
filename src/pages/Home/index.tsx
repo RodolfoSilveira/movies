@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Container, Paginate } from './styles';
 import { api, apiKey } from '../../services/api';
 import Movie from '../../components/Movie';
+import { Creators as CreatorsMessage } from '../../store/ducks/message';
 
 interface MovieDetails {
   id: number;
@@ -15,12 +17,14 @@ interface MovieDetails {
   genre_ids: [];
 }
 
-const Home: React.FC = () => {
+const Home = () => {
   const [search, setSearch] = useState('');
   const [genres, setGenres] = useState();
   const [pageNow, setPage] = useState('1');
   const [movies, setMovies] = useState([]);
   const [totalPage, setTotalPage] = useState();
+
+  const dispatch = useDispatch();
 
   const onHandleSubmit = useCallback(async () => {
     try {
@@ -47,8 +51,14 @@ const Home: React.FC = () => {
 
       setTotalPage(pageNumbers);
       setMovies(currentTodos);
-    } catch (e) { }
-  }, [pageNow, search]);
+    } catch (e) {
+      dispatch(
+        CreatorsMessage.messageFailure(
+          'Error ao consultar a api, Consulte a administração'
+        )
+      );
+    }
+  }, [dispatch, pageNow, search]);
 
   useEffect(() => {
     onHandleSubmit();
@@ -61,8 +71,10 @@ const Home: React.FC = () => {
 
   function setPaginate(n: string) {
     const page = document.getElementById(pageNow);
+    // eslint-disable-next-line no-unused-expressions
     page?.classList.remove('active');
     const pageItem = document.getElementById(n);
+    // eslint-disable-next-line no-unused-expressions
     pageItem?.classList.add('active');
     setPage(n);
     onHandleSubmit();
