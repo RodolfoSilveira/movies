@@ -15,6 +15,7 @@
 * [Polished](https://github.com/styled-components/polished)
 * [React Router dom](https://reacttraining.com/react-router/web/guides/quick-start)
 * [Axios](https://github.com/axios/axios)
+* [Redux](https://redux.js.org/)
 
 ## ▶️ Getting started
 
