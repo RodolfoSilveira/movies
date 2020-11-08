@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { Container, Paginate } from './styles';
 import { api, apiKey } from '../../services/api';
 import Movie from '../../components/Movie';
 import { Creators as CreatorsMessage } from '../../store/ducks/message';
+import { Creators as CreatorsPaginate } from '../../store/ducks/page';
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -42,11 +43,16 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
+  const paginate = useSelector((state: RootStateOrAny) => state.page.page);
+
   const onHandleSubmit = useCallback(async () => {
     try {
+      if (paginate) {
+        setPage(paginate);
+      }
       const response = await api.get(
         `search/movie?api_key=${apiKey}&language=pt-BR&query=${search ||
-        'a'}&page=${pageNow}`
+        'a'}&page=${paginate || pageNow}`
       );
 
       const generes = await api.get(
@@ -69,7 +75,7 @@ const Home = () => {
         )
       );
     }
-  }, [dispatch, pageNow, search]);
+  }, [dispatch, pageNow, paginate, search]);
 
   useEffect(() => {
     onHandleSubmit();
@@ -80,7 +86,8 @@ const Home = () => {
       // eslint-disable-next-line camelcase
       const { page, total_pages } = data;
 
-      const totalPages = Math.ceil(total_pages / 5);
+      // eslint-disable-next-line camelcase
+      const totalPages = Math.ceil(total_pages / 100);
 
       const totalNumbers = pageNeighbours * 2 + 3;
       const totalBlocks = totalNumbers + 2;
@@ -131,6 +138,7 @@ const Home = () => {
   }
 
   function setPaginate(n: string) {
+    dispatch(CreatorsPaginate.pageSuccess(n));
     const page = document.getElementById(pageNow);
     // eslint-disable-next-line no-unused-expressions
     page?.classList.remove('active');
